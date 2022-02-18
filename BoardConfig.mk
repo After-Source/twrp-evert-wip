@@ -70,6 +70,7 @@ BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0
 BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1
 BOARD_KERNEL_CMDLINE += firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7
 BOARD_KERNEL_CMDLINE += androidboot.hab.product=evert androidboot.hab.csv=6 androidboot.hab.cid=50
+BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/c0c4000.sdhci
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 # For the love of all that is holy, please do not include this in your ROM unless you really want TWRP to not work correctly!
 BOARD_KERNEL_CMDLINE += androidboot.fastboot=1
@@ -83,7 +84,24 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset $(BOARD_RAMD
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0AC000000
+
+# Retrofit dynamic partitions
+BOARD_SUPER_PARTITION_GROUPS := moto_dynamic_partitions
+BOARD_MOTO_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor
+BOARD_MOTO_DYNAMIC_PARTITIONS_SIZE := 3837758164
+BOARD_SUPER_PARTITION_SIZE := 3841982464
+BOARD_SUPER_PARTITION_METADATA_DEVICE := system
+BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor
+BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 2885681152
+BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 956301312# Retrofit dynamic partitions
+BOARD_SUPER_PARTITION_GROUPS := moto_dynamic_partitions
+BOARD_MOTO_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor
+BOARD_MOTO_DYNAMIC_PARTITIONS_SIZE := 3837758164
+BOARD_SUPER_PARTITION_SIZE := 3841982464
+BOARD_SUPER_PARTITION_METADATA_DEVICE := system
+BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor
+BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 2885681152
+BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 956301312
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -96,7 +114,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 TARGET_NO_KERNEL := false
 #TARGET_NO_RECOVERY := true
 BOARD_USES_RECOVERY_AS_BOOT := true
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+#BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 AB_OTA_UPDATER := true
 
 

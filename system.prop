@@ -1,1 +1,3 @@
 ro.display.series=Moto G6 Plus
+# Fastbootd
+ro.fastbootd.available=true

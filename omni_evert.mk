@@ -17,7 +17,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, vendor/pb/config/common.mk)
 
 # A/B updater
 AB_OTA_UPDATER := true
@@ -33,6 +33,12 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_product=true \
+    POSTINSTALL_PATH_product=bin/check_dynamic_partitions \
+    FILESYSTEM_TYPE_product=ext4 \
+    POSTINSTALL_OPTIONAL_product=false
+
 PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
@@ -47,17 +53,22 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    bootctrl.sdm660
-
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.sdm660 \
-    libgptutils \
-    libz \
-    libcutils
+    android.hardware.boot@1.0-impl.recovery \
+     bootctrl.sdm660.recovery
+
+# Fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
+
+
+
+# Enable retrofit dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
 
 PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
+    check_dynamic_partitions
 
 # FBE crypto volume modes
 PRODUCT_PROPERTY_OVERRIDES += \
