@@ -118,6 +118,11 @@ BOARD_USES_RECOVERY_AS_BOOT := true
 AB_OTA_UPDATER := true
 
 
+# pichblack flags
+PB_DISABLE_DEFAULT_DM_VERITY := true
+PB_TORCH_PATH := /sys/class/leds/flashlight
+
+
 # Build
 BUILD_BROKEN_DUP_RULES := true
 

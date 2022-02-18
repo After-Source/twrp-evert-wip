@@ -88,6 +88,9 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root)
 
+
+MAINTAINER := "Seba3567"
+
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := evert
 PRODUCT_NAME := omni_evert
