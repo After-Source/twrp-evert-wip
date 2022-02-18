@@ -19,5 +19,3 @@ PRODUCT_MAKEFILES := \
 
 COMMON_LUNCH_CHOICES := \
     omni_evert-eng \
-    omni_evert-userdebug \
-    omni_evert-user
